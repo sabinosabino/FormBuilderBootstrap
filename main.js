@@ -15,9 +15,9 @@ const availableComponents = [
     { name: 'Colunas com Offset', getHTML: getColumnsOffset },
     { name: 'Colunas Auto', getHTML: getColumnsAuto },
     { name: 'Colunas Coloridas', getHTML: getColumnsColored },
-    
-    
-    
+
+
+
     { name: 'Button', getHTML: getButtonHTML },
     { name: 'Form', getHTML: getForm },
     { name: 'Form Grid', getHTML: getFormGrid },
@@ -201,7 +201,7 @@ const availableComponents = [
     { name: 'Toast com Auto-Hide', getHTML: getToastAutoHide },
     { name: 'Toast com Cores', getHTML: getToastWithColors },
     { name: 'Toast com Múltiplos Itens', getHTML: getToastMultiple },
-    
+
 
     { name: 'Tooltip Básico', getHTML: getTooltipBasic },
     { name: 'Tooltip com Direções', getHTML: getTooltipWithDirections },
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para desenhar a lista de componentes filtrados
     function renderComponentList(filterText = '') {
         componentList.innerHTML = ''; // limpa a lista
-        const filtered = availableComponents.filter(comp => 
+        const filtered = availableComponents.filter(comp =>
             comp.name.toLowerCase().includes(filterText.toLowerCase())
         );
         filtered.forEach(comp => {
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inicializa o modal do Bootstrap
     const modalEl = document.getElementById('exportModal');
-    exportModal = new bootstrap.Modal(modalEl, {keyboard: false});
+    exportModal = new bootstrap.Modal(modalEl, { keyboard: false });
 });
 
 function allowDrop(event) {
@@ -285,12 +285,39 @@ function allowDrop(event) {
 
 function dropComponent(event) {
     event.preventDefault();
+
     if (draggedComponent) {
         const html = draggedComponent.getHTML();
-        event.currentTarget.insertAdjacentHTML('beforeend', html);
+        const dropTarget = event.currentTarget;
+
+        // Obter a posição do mouse relativa ao elemento alvo
+        const boundingRect = dropTarget.getBoundingClientRect();
+        const mouseY = event.clientY;
+
+        // Encontrar a criança mais próxima onde o mouse está
+        const children = Array.from(dropTarget.children);
+        let insertBeforeElement = null;
+
+        for (const child of children) {
+            const childRect = child.getBoundingClientRect();
+            if (mouseY < childRect.top + childRect.height / 2) {
+                insertBeforeElement = child;
+                break;
+            }
+        }
+
+        // Inserir o HTML na posição correta
+        if (insertBeforeElement) {
+            insertBeforeElement.insertAdjacentHTML('beforebegin', html);
+        } else {
+            // Se não há elemento para inserir antes, adicionar ao final
+            dropTarget.insertAdjacentHTML('beforeend', html);
+        }
+
         draggedComponent = null;
     }
 }
+
 
 function removeComponent(el) {
     const wrapper = el.closest('.component-wrapper');
@@ -344,6 +371,42 @@ function cleanNode(node) {
     }
 }
 
+function clearHtml(htmlString) {
+    // Divide a string HTML em linhas
+    const lines = htmlString.split('\n');
+    let novoHtml = '';
+    let openDivCount = 0; // Contador para rastrear aberturas de <div>
+    let x = 0; // Contador para linhas removidas com 'class=""'
+
+    // Percorre cada linha e processa
+    lines.forEach((line, index) => {
+        line = line.trim(); // Remove espaços desnecessários
+
+        // Remove linhas com 'class=""'
+        if (line.includes('class=""')) {
+            x++;
+        } 
+        // Verifica se é uma abertura <div>
+        else if (line.startsWith('<div') && !line.startsWith('</div')) {
+            openDivCount++; // Incrementa contador de <div>
+            novoHtml += line + '\n';
+        } 
+        // Verifica se é um fechamento </div>
+        else if (line === '</div>') {
+            if (openDivCount > 0) {
+                openDivCount--; // Reduz contador de <div>
+                novoHtml += line + '\n'; // Adiciona somente se há uma abertura correspondente
+            }
+        } 
+        // Adiciona outras linhas sem alteração
+        else {
+            novoHtml += line + '\n';
+        }
+    });
+
+    return novoHtml;
+}
+
 function exportHTML() {
     const canvas = document.getElementById('canvas');
     // Clona o conteúdo do canvas
@@ -353,7 +416,8 @@ function exportHTML() {
     cleanNode(clone);
 
     // Pega somente o HTML interno limpo do clone
-    const finalHTML = clone.innerHTML.trim();
+    clearHtml(clone.innerHTML.trim())
+    const finalHTML = clearHtml(clone.innerHTML.trim());
 
     const textarea = document.getElementById('exportedHTML');
     textarea.value = finalHTML;
