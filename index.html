@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Builder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+        #sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+            padding: 1rem;
+        }
+        #canvas-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        #canvas-toolbar {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            background: #f8f9fa;
+        }
+        #canvas {
+            flex: 1;
+            padding: 1rem;
+            border: 1px dashed #ccc;
+            min-height: 100vh;
+        }
+        .component {
+            border: 1px solid #ccc;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: #fff;
+            cursor: grab;
+        }
+        .droppable-area {
+            border: 1px dashed #aaa;
+            min-height: 50px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .component-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .remove-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: none;
+        }
+        .component-wrapper:hover .remove-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h4>Componentes</h4>
+        <!-- Campo de busca -->
+        <input type="text" id="searchComponents" class="form-control" placeholder="Buscar componentes..." style="margin-bottom:1rem;">
+        
+        <div id="component-list"></div>
+    </div>
+
+    <div id="canvas-wrapper">
+        <div id="canvas-toolbar">
+            <button class="btn btn-primary btn-sm" onclick="exportHTML()">Exportar HTML</button>
+        </div>
+        <div id="canvas" ondragover="allowDrop(event)" ondrop="dropComponent(event)">
+        </div>
+    </div>
+
+    <!-- Modal para exibir o HTML gerado -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exportModalLabel">HTML Gerado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <textarea id="exportedHTML" class="form-control" rows="10"></textarea>
+          </div>
+          <div class="modal-footer">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-info" onclick="viewResult()">Visualizar</button>
+                <button type="button" class="btn btn-success" onclick="copyHTML()">Copiar HTML</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="components/Template.js"></script>
+    <script src="components/Row.js"></script>
+    <script src="components/Column.js"></script>
+    <script src="components/Button.js"></script>
+    <script src="components/Form.js"></script>
+    <script src="components/Accordion.js"></script>
+    <script src="components/Alerts.js"></script>
+    <script src="components/Inputs.js"></script>
+    <script src="components/Badges.js"></script>
+    <script src="components/Breadcrumb.js"></script>
+    <script src="components/ButtonGroup.js"></script>
+    <script src="components/Cards.js"></script>
+    <script src="components/Carousel.js"></script>
+    <script src="components/CloseButton.js"></script>
+    <script src="components/Collapse.js"></script>
+    <script src="components/Dropdowns.js"></script>
+    <script src="components/ListGroup.js"></script>
+    <script src="components/Modal.js"></script>
+    <script src="components/NavTabs.js"></script>
+    <script src="components/Navbar.js"></script>
+    <script src="components/Offcanvas.js"></script>
+    <script src="components/Pagination.js"></script>
+    <script src="components/Popovers.js"></script>
+    <script src="components/Progress.js"></script>
+    <script src="components/Scrollspy.js"></script>
+    <script src="components/Spinners.js"></script>
+    <script src="components/Toasts.js"></script>
+    <script src="components/Tooltips.js"></script>
+    <script src="components/Typography.js"></script>
+    <script src="components/Images.js"></script>
+    <script src="components/Tables.js"></script>
+    <script src="components/Figures.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="main.js"></script>
+</body>
+</html>
