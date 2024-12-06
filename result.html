@@ -13,7 +13,7 @@
         const exportedHTML = localStorage.getItem('exportedHTML');
 
         if (exportedHTML) {
-            document.body.innerHTML = exportedHTML;
+            document.body.innerHTML = `<div class='container'>${exportedHTML}</div>`;
         } else {
             document.body.innerHTML = '<div class="alert alert-warning">Nenhum conteúdo encontrado para visualizar.</div>';
         }

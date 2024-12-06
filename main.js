@@ -51,6 +51,14 @@ const availableComponents = [
     { name: 'Input Group com Radio Button', getHTML: getInputGroupWithRadio },
     { name: 'Input Group com Múltiplos Elementos', getHTML: getInputGroupMultipleElements },
 
+
+    { name: 'Input DataList', getHTML: getInputDataList },
+    { name: 'Input File', getHTML: getInputFile },
+    { name: 'Input Com Label', getHTML: getInputLabel },
+    { name: 'Input Com Medio', getHTML: getInputLabelMedium },
+    { name: 'Input Com Pequeno', getHTML: getInputLabelSmall },
+
+
     { name: 'Floating Label Básico', getHTML: getInputGroupFloatingLabelBasic },
     { name: 'Floating Label com Prefixo', getHTML: getInputGroupFloatingLabelWithPrefix },
     { name: 'Floating Label com Sufixo', getHTML: getInputGroupFloatingLabelWithSuffix },
