@@ -237,6 +237,10 @@ const availableComponents = [
     { name: 'Figura com Alinhamento', getHTML: getFigureAlignment },
     { name: 'Figura com Texto Personalizado', getHTML: getFigureCustomText },
     { name: 'Figura Responsiva', getHTML: getFigureResponsive },
+
+    { name: 'Botao Azul Style', getHTML: getBotaoAzulTemlate },
+    { name: 'Botao Laranja Style', getHTML: getBotaoLaranja },
+
     // Adicione outros componentes conforme necessário
 ];
 
