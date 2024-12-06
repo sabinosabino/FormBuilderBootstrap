@@ -371,3 +371,46 @@ function getInputGroupFloatingLabelWithRadio() {
         </div>
     `);
 }
+
+
+function getInputLabel(){
+    return `<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>`
+}
+
+function getInputLabelSmall(){
+    return `<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example">
+</div>`
+}
+
+function getInputLabelMedium(){
+    return `<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input class="form-control form-control-md" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example">
+</div>`
+}
+
+
+function getInputFile(){
+    return `<div class="mb-3">
+   <label for="formFile" class="form-label">Default file input example</label>
+  <input class="form-control" type="file" id="formFile">
+</div>`
+}
+
+
+function getInputDataList(){
+    return `<label for="exampleDataList" class="form-label">Datalist example</label>
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<datalist id="datalistOptions">
+  <option value="San Francisco">
+  <option value="New York">
+  <option value="Seattle">
+  <option value="Los Angeles">
+  <option value="Chicago">
+</datalist>`
+}
